@@ -106,25 +106,25 @@ lm.lasso.min <- function(X, Y, intercept) {
   return(value)
 }
 
-
-lm.lasso.adapt <- function(X, Y, intercept) {
-  if (ncol(X) < 2)
-    return(lm.ols(X, Y, intercept))
-
-  # set colnames
-  if (is.null(colnames(X))) {
-    colnames(X) <- paste0("X", seq_len(ncol(X)))
-  }
-
-  adapt.mod <- parcor::adalasso(X = X, y = Y, intercept = intercept)
-  est.b <- c(adapt.mod$intercept.adalasso,
-             adapt.mod$coefficients.adalasso)
-  names(est.b[-1]) <- colnames(X)
-
-  value <- list(raw.mod = adapt.mod, est.b = est.b)
-  attr(value, "class") <- "lm.result"
-  return(value)
-}
+# removed as the r package parcor is no longer available on CRAN
+# lm.lasso.adapt <- function(X, Y, intercept) {
+#   if (ncol(X) < 2)
+#     return(lm.ols(X, Y, intercept))
+#
+#   # set colnames
+#   if (is.null(colnames(X))) {
+#     colnames(X) <- paste0("X", seq_len(ncol(X)))
+#   }
+#
+#   adapt.mod <- parcor::adalasso(X = X, y = Y, intercept = intercept)
+#   est.b <- c(adapt.mod$intercept.adalasso,
+#              adapt.mod$coefficients.adalasso)
+#   names(est.b[-1]) <- colnames(X)
+#
+#   value <- list(raw.mod = adapt.mod, est.b = est.b)
+#   attr(value, "class") <- "lm.result"
+#   return(value)
+# }
 
 lm.elastic.half <- function(X, Y, intercept) {
 
